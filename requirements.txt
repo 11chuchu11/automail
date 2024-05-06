@@ -1,0 +1,4 @@
+docx2pdf
+docxtpl
+fastapi
+oauth2
