@@ -1,17 +1,19 @@
-from fastapi import FastAPI
+import os
+from typing import Union
+import flask
 
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+from src.routes.route import route
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+app = flask.Flask(__name__)
+#!Cambiar esto y generar una secret key extraida de .env
 
 
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+app.secret_key=b'_5#y2L"F4Q8z\n\xec]/'
+
+app.register_blueprint(route, url_prefix='/api')
+
+if __name__== '__main__':
+    #! EN PRODUCCION ELIMINAR ESTO
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    app.run('localhost', 8000, debug=True)
