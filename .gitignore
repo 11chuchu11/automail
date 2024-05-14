@@ -6,6 +6,6 @@ documents
 *.env
 **/*/.log
 
-prueba.py
+**/prueba.py
 client_secret.json
 

@@ -1,4 +1,3 @@
-dependency-injector
 docx2pdf
 docxtpl
 flask
