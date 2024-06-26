@@ -1,9 +1,11 @@
 docx2pdf
 docxtpl
 flask
+Flask-SQLAlchemy
 google-api-python-client
 google-auth
 google-auth-oauthlib
 google-auth-httplib2
 requests
 python-dotenv
+psycopg2-binary

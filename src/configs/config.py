@@ -28,3 +28,7 @@ google_client_config = {"web": {
 scope_gmail_read_messages = os.get_env("GOOGLE_SCOPE_OAUTH_GMAIL_READ_MESSAGES")
 gmail_service = os.getenv("GOOGLE_SERVICE_GMAIL")
 gmail_service_version = os.getenv("GOOGLE_GMAIL_VERSION")
+oauth_service = os.getenv("GOOGLE_SERVICE_OAUTH")
+oauth_service_version = os.getenv("GOOGLE_OAUTH_VERSION")
+scope_oauth_profile = os.get_env("GOOGLE_SCOPE_OAUTH_PROFILE")
+scope_oauth_openid = os.get_env("GOOGLE_SCOPE_OAUTH_OPENID")
