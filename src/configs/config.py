@@ -12,17 +12,8 @@ cert_url = os.getenv("GOOGLE_SECRET_FILE_AUTH_PROVIDER_X509_CERT_URL")
 client_secret = os.getenv("GOOGLE_SECRET_FILE_CLIENT_SECRET")
 redirect_uris = os.getenv("GOOGLE_SECRET_FILE_REDIRECT_URIS")
 javascript_origins = os.getenv("GOOGLE_SECRET_FILE_JAVASCRIPT_ORIGINS")
+openid_url = os.getenv("GOOGLE_OPEN_ID_URL")
 
-google_client_config = {"web": {
-  "client_id":client_id, 
-  "project_id":project_id, 
-  "auth_uri":auth_uri,
-  "token_uri":token_uri,
-  "cert_url":cert_url,
-  "client_secret":client_secret,
-  "redirect_uris":redirect_uris, 
-  "javascript_origins":javascript_origins
-}}
 
 #*  google services
 scope_gmail_read_messages = os.get_env("GOOGLE_SCOPE_OAUTH_GMAIL_READ_MESSAGES")
@@ -32,3 +23,15 @@ oauth_service = os.getenv("GOOGLE_SERVICE_OAUTH")
 oauth_service_version = os.getenv("GOOGLE_OAUTH_VERSION")
 scope_oauth_profile = os.get_env("GOOGLE_SCOPE_OAUTH_PROFILE")
 scope_oauth_openid = os.get_env("GOOGLE_SCOPE_OAUTH_OPENID")
+
+google_client_config = {"web": {
+  "client_id":client_id, 
+  "project_id":project_id, 
+  "auth_uri":auth_uri,
+  "token_uri":token_uri,
+  "cert_url":cert_url,
+  "client_secret":client_secret,
+  "redirect_uris":redirect_uris, 
+  "javascript_origins":javascript_origins,
+  "openid_url": openid_url
+}}
