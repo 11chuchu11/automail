@@ -1,52 +1,52 @@
-import os
-import flask 
 import requests
 
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from authlib.integrations.flask_client import OAuth
+from authlib.integrations.requests_client import OAuth2Session
 
-from src.utils.helpers import google_credentrials_to_dict
-
-
-from src.configs.config import google_client_config, scope_gmail_read_messages
+from src.configs.config import google_client_config, google_scopes, google_services, url
+from requests.compat import urljoin
 
 class Google_auth_service:  
-  _scopes=[scope_gmail_read_messages]
+  _scope = google_scopes['openid']
   
   
-  def __init__(self, app):
-    _oauth = OAuth(app)
-    _oauth.register(
-      name='google',
-      client_id=google_client_config['client_id'],
-      client_secret=google_client_config['client_secret'],
-      authorize_url=google_client_config['auth_uri'],
-      server_metadata_url=google_client_config['openid_url'],
-      client_kwargs={
-        'scope': 'openid email profile'
-    }
-      )
+  def __init__(self):
+    self._client_id = google_client_config['client_id']
+    self._client_secret = google_client_config['client_secret']
+    self._auth_uri = google_client_config['auth_uri']
+    self._token_uri = google_client_config['token_uri']
+    self._revoke_uri = google_services['revoke']
     
-  def login(self, redirect_uri):
-    return self._oauth.google.authorize_redirect(redirect_uri)
+    self._client = OAuth2Session(self._client_id, self._client_secret, scope=self._scope, token_endpoint=self._token_uri)
+    
+  def authorization_uri(self):
+    AUTH_URI = self._auth_uri
+    
+    client = self._client
+    
+    client.redirect_uri = 'http://localhost:3000/auth/2'
+    uri, state = client.create_authorization_url(AUTH_URI)
+    return {"uri":uri, "state":state}
   
-  def auth(self, redirect_uri:str):
-    token = self._oauth.google.authorize_access_token()
+  def auth(self, data):
+    TOKEN_URI = self._token_uri
+    uriParams = data['url']
+    
+    client = self._client
+    
+    client.redirect_uri = 'http://localhost:3000/auth/2'
+    url = urljoin('http://localhost:3000/auth/2', '?'+uriParams)
+    token = client.fetch_token(TOKEN_URI, authorization_response=url)
     return token
   
-  def refresh(self, token):
-    creds = Credentials(token['access_token'], refresh_token=token.get('refresh_token'),token_uri=google_client_config['token_uri'], client_id=google_client_config['client_id'], client_secret=google_client_config['client_secret'])
-    if creds.expired and creds.refresh_token:
-      creds.refresh(Request())
-      token['access_token'] = creds.token
-    return creds
+  def revoke(self, data):
+    REVOKE_URI = self._revoke_uri
+
+    token = data["token"]    
+    client = self._client
+    respRevoke = client.revoke_token(REVOKE_URI, token=token["access_token"])
+    print(respRevoke.json())
+    return respRevoke.json()
+    
+
+
   
-  def revoke(self, credentials):
-    credentials = google.oauth2.credentials.Credentials(**credentials)
-    revoke = requests.post('https://oauth2.googleapis.com/revoke',params={'token': credentials.token},headers = {'content-type': 'application/x-www-form-urlencoded'})
-    status_code = getattr(revoke, 'status_code')
-    return status_code
-  
-  #TODO logica para eliminar credenciales de la base de datos
-  def clear_credentials(): pass

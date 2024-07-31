@@ -12,19 +12,21 @@ cert_url = os.getenv("GOOGLE_SECRET_FILE_AUTH_PROVIDER_X509_CERT_URL")
 client_secret = os.getenv("GOOGLE_SECRET_FILE_CLIENT_SECRET")
 redirect_uris = os.getenv("GOOGLE_SECRET_FILE_REDIRECT_URIS")
 javascript_origins = os.getenv("GOOGLE_SECRET_FILE_JAVASCRIPT_ORIGINS")
-openid_url = os.getenv("GOOGLE_OPEN_ID_URL")
 
+
+#* google scopes
+scope_oauth_openid = os.getenv("GOOGLE_SCOPE_OAUTH_OPENID")
 
 #*  google services
-scope_gmail_read_messages = os.get_env("GOOGLE_SCOPE_OAUTH_GMAIL_READ_MESSAGES")
-gmail_service = os.getenv("GOOGLE_SERVICE_GMAIL")
-gmail_service_version = os.getenv("GOOGLE_GMAIL_VERSION")
-oauth_service = os.getenv("GOOGLE_SERVICE_OAUTH")
-oauth_service_version = os.getenv("GOOGLE_OAUTH_VERSION")
-scope_oauth_profile = os.get_env("GOOGLE_SCOPE_OAUTH_PROFILE")
-scope_oauth_openid = os.get_env("GOOGLE_SCOPE_OAUTH_OPENID")
+service_oauth_openid = os.getenv("GOOGLE_SERVICE_OPENID")
+service_oauth_revoke_token = os.getenv("GOOGLE_SERVICE_REVOKE_TOKEN")
 
-google_client_config = {"web": {
+#* urls
+host = os.getenv("HOST_URL")
+auth = os.getenv("AUTH_PATH")
+callback = os.getenv("CALLBACK_PATH")
+
+google_client_config = {
   "client_id":client_id, 
   "project_id":project_id, 
   "auth_uri":auth_uri,
@@ -33,5 +35,22 @@ google_client_config = {"web": {
   "client_secret":client_secret,
   "redirect_uris":redirect_uris, 
   "javascript_origins":javascript_origins,
-  "openid_url": openid_url
-}}
+}
+
+google_services = {
+  "openid": service_oauth_openid,
+  "revoke": service_oauth_revoke_token
+}
+
+google_scopes = {
+  "openid": scope_oauth_openid
+}
+
+urls = {"host": host, "auth": auth, "callback": callback}
+
+
+def url(param):
+  uri = urls['host']
+  if param != "host":
+    uri = f"{urls['host']}/{urls['param']}"
+  return uri

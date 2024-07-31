@@ -11,3 +11,5 @@ requests
 python-dotenv
 psycopg2-binary
 authlib
+dependency-injector
+flask_cors

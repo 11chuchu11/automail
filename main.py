@@ -1,7 +1,7 @@
 import os
 from typing import Union
 import flask
-
+from flask_cors import CORS
 from src.routes.route import route
 
 
@@ -10,6 +10,7 @@ app = flask.Flask(__name__)
 
 
 app.secret_key=b'_5#y2L"F4Q8z\n\xec]/'
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.register_blueprint(route, url_prefix='/api')
 
