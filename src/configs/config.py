@@ -3,50 +3,42 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-#* google client config
-client_id = os.getenv("GOOGLE_SECRET_FILE_CLIENT_ID")
-project_id = os.getenv("GOOGLE_SECRET_FILE_PROJECT_ID")
-auth_uri = os.getenv("GOOGLE_SECRET_FILE_AUTH_URI")
-token_uri = os.getenv("GOOGLE_SECRET_FILE_TOKEN_URI")
-cert_url = os.getenv("GOOGLE_SECRET_FILE_AUTH_PROVIDER_X509_CERT_URL")
-client_secret = os.getenv("GOOGLE_SECRET_FILE_CLIENT_SECRET")
-redirect_uris = os.getenv("GOOGLE_SECRET_FILE_REDIRECT_URIS")
-javascript_origins = os.getenv("GOOGLE_SECRET_FILE_JAVASCRIPT_ORIGINS")
-
-
-#* google scopes
-scope_oauth_openid = os.getenv("GOOGLE_SCOPE_OAUTH_OPENID")
-
-#*  google services
-service_oauth_openid = os.getenv("GOOGLE_SERVICE_OPENID")
-service_oauth_revoke_token = os.getenv("GOOGLE_SERVICE_REVOKE_TOKEN")
-
-#* urls
-host = os.getenv("HOST_URL")
-auth = os.getenv("AUTH_PATH")
-callback = os.getenv("CALLBACK_PATH")
-
 google_client_config = {
-  "client_id":client_id, 
-  "project_id":project_id, 
-  "auth_uri":auth_uri,
-  "token_uri":token_uri,
-  "cert_url":cert_url,
-  "client_secret":client_secret,
-  "redirect_uris":redirect_uris, 
-  "javascript_origins":javascript_origins,
+  "client_id":os.getenv("GOOGLE_SECRET_FILE_CLIENT_ID"),
+  "project_id":os.getenv("GOOGLE_SECRET_FILE_PROJECT_ID"), 
+  "auth_uri":os.getenv("GOOGLE_SECRET_FILE_AUTH_URI"),
+  "token_uri":os.getenv("GOOGLE_SECRET_FILE_TOKEN_URI"),
+  "cert_url":os.getenv("GOOGLE_SECRET_FILE_AUTH_PROVIDER_X509_CERT_URL"),
+  "client_secret":os.getenv("GOOGLE_SECRET_FILE_CLIENT_SECRET"),
+  "redirect_uris":os.getenv("GOOGLE_SECRET_FILE_REDIRECT_URIS"), 
+  "javascript_origins":os.getenv("GOOGLE_SECRET_FILE_JAVASCRIPT_ORIGINS"),
 }
 
 google_services = {
-  "openid": service_oauth_openid,
-  "revoke": service_oauth_revoke_token
+  "openid": os.getenv("GOOGLE_SERVICE_OPENID"),
+  "revoke": os.getenv("GOOGLE_SERVICE_REVOKE_TOKEN")
 }
 
 google_scopes = {
-  "openid": scope_oauth_openid
+  "openid": os.getenv("GOOGLE_SCOPE_OAUTH_OPENID"),
 }
 
-urls = {"host": host, "auth": auth, "callback": callback}
+#*BBDD
+bbdd = {
+  "engine": os.getenv("BBDD_ENGINE"),
+  "name_db":os.getenv("BBDD_NAME_DB"),
+  "user": os.getenv("BBDD_USER"),
+  "pssw": os.getenv("BBDD_PSSW"),
+  "host": os.getenv("BBDD_HOST"),
+  "port": os.getenv("BBDD_PORT"),
+  "max_connections": os.getenv("BBDD_MAX_CONNECTIONS"),
+}
+
+
+urls = {
+  "host": os.getenv("HOST_URL"),
+  "auth": os.getenv("AUTH_PATH"),
+  "callback": os.getenv("CALLBACK_PATH")}
 
 
 def url(param):
