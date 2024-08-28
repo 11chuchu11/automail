@@ -1,8 +1,10 @@
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import inspect
 
 from src.configs.database_connection import create_connection
 from src.repositories.abs.user_type_repository_abs import User_Type_Repository_Abs
 from src.schemas.user_type_schema import User_Type
+from src.schemas.base import Base
 from src.entities.user_type_entitie import User_Type_Entitie
 
 
@@ -12,6 +14,10 @@ class User_Type_Respository(User_Type_Repository_Abs):
     engine = create_connection()
     Session = sessionmaker(bind=engine)
     self.__session = Session()
+    #*Chequea si la tabla esta creada sino la crea
+    insp = inspect(engine)
+    if not engine.dialect.has_table(inspect, User_Type.__tablename__):
+      Base.metadata.create_all(engine.connect(), tables=[User_Type.__tablename__])
     
   def find_all(self):
     session = self.__session
