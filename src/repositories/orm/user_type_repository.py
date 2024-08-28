@@ -1,5 +1,7 @@
+from flask import Response
+
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import inspect
+from sqlalchemy.exc import NoResultFound
 
 from src.configs.database_connection import create_connection
 from src.repositories.abs.user_type_repository_abs import User_Type_Repository_Abs
@@ -14,16 +16,15 @@ class User_Type_Respository(User_Type_Repository_Abs):
     engine = create_connection()
     Session = sessionmaker(bind=engine)
     self.__session = Session()
+    
     #*Chequea si la tabla esta creada sino la crea
-    insp = inspect(engine)
-    if not engine.dialect.has_table(inspect, User_Type.__tablename__):
-      Base.metadata.create_all(engine.connect(), tables=[User_Type.__tablename__])
+    if not engine.dialect.has_table(engine.connect(), User_Type.__tablename__):
+      Base.metadata.create_all(engine, tables=[User_Type.__tablename__])
     
   def find_all(self):
     session = self.__session
     users_type = session.query(User_Type).all()
     results = [row.get_values() for row in users_type]
-    print(results)
     return results
 
   def find_by_id(self, id):
@@ -41,7 +42,6 @@ class User_Type_Respository(User_Type_Repository_Abs):
     return result
   
   def update(self, id, row: User_Type_Entitie):
-
     session = self.__session
     user_type = session.query(User_Type).filter(User_Type.id==id).first()
     user_type.name = row.name
@@ -54,5 +54,8 @@ class User_Type_Respository(User_Type_Repository_Abs):
     session = self.__session
     result = session.query(User_Type).filter(User_Type.id == id).delete()
     session.commit()
-    print("MIRA AACAAAAAAAAAA ID: ",result)
-    return {"status":201}
+    
+    if result == 0:
+      raise NoResultFound()
+    
+    return ({"id":id})

@@ -5,7 +5,10 @@ documents
 
 *.env
 **/*/.log
+**/__pycache__/
+**/*.py[cod]
 
 **/prueba.py
 client_secret.json
+
 
