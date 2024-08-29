@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from src.entities.user_type_entitie import User_Type_Entitie
+from src.domain.entities.user_type_entitie import User_Type_Entitie
 
 
 class User_Type_Repository_Abs(metaclass=ABCMeta):

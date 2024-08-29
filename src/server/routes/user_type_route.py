@@ -1,6 +1,6 @@
 from flask import Blueprint
-from src.injection.dependency_injection import container
-from src.controllers.user_type_controller import User_Type_Controller
+from src.infrastructure.injection.dependency_injection import container
+from src.server.controllers.user_type_controller import User_Type_Controller
 
 user_type_controller:User_Type_Controller = container.User_Type_Controller()
 user_type_route = Blueprint("user-type", __name__)

@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Column, String, UUID,Integer,DateTime, ForeignKey
-from src.schemas.base import Base
+from src.infrastructure.data.repositories_sqlalchemy.models.base import Base
 
 class User(Base):
   __tablename__ = "users"

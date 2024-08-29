@@ -1,5 +1,5 @@
 import psycopg2
-from src.configs.config import bbdd
+from src.server.configs.config import bbdd
 import sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
 

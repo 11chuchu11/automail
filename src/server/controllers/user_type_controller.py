@@ -1,7 +1,7 @@
 from flask import request
 
-from entities.user_type_entitie import User_Type_Entitie
-from src.services.user_type_service import User_Type_Service
+from src.domain.entities.user_type_entitie import User_Type_Entitie
+from src.domain.services.user_type_service import User_Type_Service
 
 class User_Type_Controller:
   
@@ -19,17 +19,13 @@ class User_Type_Controller:
     
   def add(self):
     data = request.json
-    user_type = User_Type_Entitie()
-    user_type.set_from_dict(data)
-    
-    response = self.user_type_service.add(user_type)
+
+    response = self.user_type_service.add(data)
     return response
   
   def update(self, id):
     id = int(id)
     data = request.json
-    user_type = User_Type_Entitie()
-    user_type.set_from_dict(data)
     
     response = self.user_type_service.update(id, data)
     return response

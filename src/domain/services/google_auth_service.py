@@ -1,8 +1,6 @@
-import requests
-
 from authlib.integrations.requests_client import OAuth2Session
 
-from src.configs.config import google_client_config, google_scopes, google_services, url
+from src.server.configs.config import google_client_config, google_scopes, google_services, url
 from requests.compat import urljoin
 
 class Google_auth_service:  

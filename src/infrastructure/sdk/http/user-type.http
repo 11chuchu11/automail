@@ -1,0 +1,27 @@
+@url = http://localhost:8000/api/user-type
+GET {{url}}/all
+Accept: application/json
+
+
+GET {{url}}/17
+Accept: application/json
+
+POST {{url}}
+Content-Type: application/json
+
+{
+  "name":"user"
+}
+
+PUT {{url}}/26
+Content-Type: application/json
+
+{
+  "name":"user2"
+}
+
+DELETE {{url}}/26
+
+
+
+

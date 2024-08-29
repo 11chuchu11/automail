@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, UUID, Integer
-from src.schemas.base import Base
+from src.infrastructure.data.repositories_sqlalchemy.models.base import Base
 
 class User_Type(Base):
   __tablename__ = "user_types"

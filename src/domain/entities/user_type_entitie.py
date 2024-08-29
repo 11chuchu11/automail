@@ -7,3 +7,9 @@ class User_Type_Entitie:
   def set_from_dict(self, dict):
     self.id = dict.get("id", 0)
     self.name = dict.get("name", "")
+    
+  def json(self):
+    return {
+      "id":self.id,
+      "name":self.name
+    }

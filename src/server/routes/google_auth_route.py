@@ -1,6 +1,6 @@
 from flask import Blueprint
-from src.injection.dependency_injection import container
-from src.controllers.google_auth_controller import Google_auth_controller
+from src.infrastructure.injection.dependency_injection import container
+from src.server.controllers.google_auth_controller import Google_auth_controller
 
 
 google_auth_controller:Google_auth_controller = container.Google_auth_controller()

@@ -1,5 +1,5 @@
 from flask import request 
-from src.services.google_auth_service import Google_auth_service
+from src.domain.services.google_auth_service import Google_auth_service
 
 
 class Google_auth_controller:
